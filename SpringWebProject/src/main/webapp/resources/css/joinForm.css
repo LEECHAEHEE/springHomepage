@@ -1,0 +1,24 @@
+@charset "EUC-KR";
+
+.joinForm{
+	position: absolute;
+	width: 800px;
+	height: 700px;
+	border: 1px solid black;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+.joinForm h1 { text-align: center; }
+
+.joinForm table{
+	border:1px solid black;
+	border-collapse:collapse;
+}
+.joinForm table tr {
+/* 	border: 1px solid black; */
+}
+.joinForm table tr td{
+	border: 1px solid black;
+}
+</style>

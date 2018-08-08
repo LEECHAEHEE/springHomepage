@@ -1,0 +1,41 @@
+@charset "EUC-KR";
+
+.loginWrap{
+	position: relative;
+	height: 150px;
+	width: 300px;
+	padding: 5px;
+	box-sizing: border-box;
+}
+.login{
+	text-align: right;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform : translate(-50%, -50%);
+}
+.login ul {
+	display: inline-block;
+}
+.login ul li {
+	float: left;
+}
+.loginBtn{
+	border: 1px solid black;
+	background:#fff;
+	font-size: 1em;
+	height: 50px;
+	width: 250px;
+	cursor: pointer;
+}
+.find{
+	font-size: 0.8em;
+}
+.find:after{
+	content:"|";
+	padding:0 5px;
+}
+
+.joinTxt{
+	font-size: 0.8em;
+}
