@@ -1,3 +1,4 @@
+/*DTO*/
 package com.spring.web.DTO;
 
 import java.sql.Timestamp;
