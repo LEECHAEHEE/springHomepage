@@ -1,5 +1,5 @@
 /*DTO*/
-package com.spring.web.DTO;
+package com.spring.web.member.DTO;
 
 import java.sql.Timestamp;
 

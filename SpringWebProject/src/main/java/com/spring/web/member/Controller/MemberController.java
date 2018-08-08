@@ -1,17 +1,24 @@
-package com.spring.web.controller;
+package com.spring.web.member.Controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.spring.web.DTO.MemberDTO;
+import com.spring.web.member.DTO.MemberDTO;
+import com.spring.web.member.Service.MemberServiceImpl;
 
 @Controller
 @RequestMapping("/member/*")
 public class MemberController {
+	@Autowired MemberServiceImpl service;
 	
 	@RequestMapping(value="/home.do")
 	public String home() {
@@ -34,13 +41,13 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/idCheck.do", method=RequestMethod.POST)
-	public void idChceck() {
-	
+	public void idChceck(@RequestParam("id") String id, HttpServletResponse response) throws Exception {
+		service.idCheck(id,response);
 	}
 	
 	@RequestMapping(value="/joinOK.do", method=RequestMethod.POST)
-	public String joinOK(@ModelAttribute("member") MemberDTO member, HttpServletResponse response) {
-		System.out.println(member);
+	public String joinOK(@ModelAttribute("member") MemberDTO member, HttpServletResponse response) throws Exception {
+		service.joinMember(member, response);
 		return "redirect:home.do";
 	}
 	

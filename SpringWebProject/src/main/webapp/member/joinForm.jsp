@@ -49,11 +49,26 @@
 				alert('비밀번호를 확인하세요');
 				return false;
 			}else{
-				alert('회원가입을 축하합니다! 로그인 후 서비스를 이용하실 수 있습니다.');
-				return true;
+				if(joinCheck()){
+					alert('회원가입을 축하합니다! 로그인 후 서비스를 이용하실 수 있습니다.');
+					return true;
+				}else{
+					alert('회원가입이 취소 되었습니다');
+					return false;
+				}
 			}
 		})
+		
+		function joinCheck(){
+			return confirm("회원가입 하시겠습니까?");
+		}
+		
+		$("#idCheck").click(function(){
+			window.open('idCheck.jsp','_blank','top=100, left=100, width=400, height=250, resizable=no, location=no',true);
+		})
 	})
+	
+		
 </script>
 </head>
 <body>
@@ -70,8 +85,8 @@
 			<tr>
 				<td>아이디</td>
 				<td>
-					<input type="text" name="id" id="id" placeholder="아이디" required>
-					<button onclick="idCheck.do">중복 확인</button>
+					<input type="text" name="id" id="id" placeholder="아이디" required readonly>
+					<button id="idCheck">아이디 중복 확인</button>
 				</td>
 			</tr>
 			<tr>

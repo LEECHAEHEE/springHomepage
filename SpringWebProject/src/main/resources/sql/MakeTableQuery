@@ -1,0 +1,15 @@
+CREATE TABLE `baedal`.`member` (
+  `name` VARCHAR(20) NOT NULL,
+  `id` VARCHAR(20) NOT NULL,
+  `pw` VARCHAR(20) NOT NULL,
+  `birthYear` INT NOT NULL,
+  `birthMonth` INT NOT NULL,
+  `birthDay` INT NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `reg_date` TIMESTAMP NOT NULL DEFAULT current_timestamp,
+  `log_date` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`id`));
+
+  ALTER TABLE `baedal`.`new_table` 
+RENAME TO  `baedal`.`member` ;
+  
