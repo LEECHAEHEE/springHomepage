@@ -66,4 +66,9 @@ public class MemberController {
 			session.setAttribute("loginMember", member);
 		}
 	}	
+	
+	@RequestMapping(value="/findIdsendEmail.do", method=RequestMethod.POST)
+	public void findIdsendEmail(@ModelAttribute("member") MemberDTO member, HttpServletResponse response) {
+		System.out.println(member);
+	}
 }

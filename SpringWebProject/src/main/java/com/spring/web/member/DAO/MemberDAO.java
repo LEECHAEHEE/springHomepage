@@ -28,4 +28,8 @@ public class MemberDAO {
 	public MemberDTO loginOK(MemberDTO member) {
 		return sqlSession.selectOne("loginOK", member);
 	}
+	
+	public MemberDTO findMemberByIdEmail(MemberDTO member) {
+		return sqlSession.selectOne("findMemberByIdEmail", member);
+	}
 }
