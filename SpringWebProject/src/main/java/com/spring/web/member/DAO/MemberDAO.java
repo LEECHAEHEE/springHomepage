@@ -24,4 +24,8 @@ public class MemberDAO {
 	public int idCheck(String id) {
 		return sqlSession.selectOne("idCheck", id);
 	}
+	
+	public MemberDTO loginOK(MemberDTO member) {
+		return sqlSession.selectOne("loginOK", member);
+	}
 }

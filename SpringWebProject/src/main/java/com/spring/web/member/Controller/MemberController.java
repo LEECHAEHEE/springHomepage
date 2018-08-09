@@ -1,9 +1,8 @@
 package com.spring.web.member.Controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.xml.ws.RequestWrapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,6 +39,16 @@ public class MemberController {
 		return "member/findForm";
 	}
 	
+	@RequestMapping(value="/findIdForm.do")
+	public String findIdForm() {
+		return "member/findIdForm";
+	}
+	
+	@RequestMapping(value="/findPwForm.do")
+	public String findPwForm() {
+		return "member/findPwForm";
+	}
+	
 	@RequestMapping(value="/idCheck.do", method=RequestMethod.POST)
 	public void idChceck(@RequestParam("id") String id, HttpServletResponse response) throws Exception {
 		service.idCheck(id,response);
@@ -51,4 +60,10 @@ public class MemberController {
 		return "redirect:home.do";
 	}
 	
+	@RequestMapping(value="/loginOK.do", method=RequestMethod.POST)
+	public void loginOK(@ModelAttribute("member") MemberDTO member, HttpSession session, HttpServletResponse response) throws Exception{
+		if(service.loginOK(member, response)==1) {
+			session.setAttribute("loginMember", member);
+		}
+	}	
 }

@@ -1,0 +1,7 @@
+@charset "EUC-KR";
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
+body { font-family: 'Nanum Gothic', sans-serif;}
+body, html, h1,h2,h3,h4,h5,h6, li,ol,ul,p,form,table, fieldset,legend { margin: 0;padding: 0;}
+ul { list-style: none }
+.errorMsg { font-size: 0.8em; color: red;}
+.memberHref { font-size: 0.8em; color: blue;}

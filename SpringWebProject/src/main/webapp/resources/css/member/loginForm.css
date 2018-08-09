@@ -1,0 +1,21 @@
+@charset "EUC-KR";
+#idFormOuterWrapper{
+	position: absolute;
+	width: 400px;
+	height: 500px;
+	margin: auto;
+	border: 1px solid black;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+#idFormInnerWrapper{width: 100%;}
+#idForm{ }
+
+#findForm { }
+#findForm table { width: 100%;}
+#findForm table tr td {width: 30%;text-align: center;}
+/* #findForm ul {width: 100%;position: absolute; left: 50%; transform:translateX(-50%);} */
+/* #findForm ul li {float: left;} */
+/* #findForm table td tr:after {content:"|"; padding:0 5px;} */
+/* #findForm table td tr:last-child:after{content:none;} */

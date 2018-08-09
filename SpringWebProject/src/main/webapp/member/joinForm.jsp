@@ -4,10 +4,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>회원가입</title>
-<link rel="stylesheet" href="../resources/css/default.css" />
-<link rel="stylesheet" href="../resources/css/joinForm.css" />
+<link rel="stylesheet" href="../resources/css/member/default.css" />
+<link rel="stylesheet" href="../resources/css/member/joinForm.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 	var pwCheck = false;
@@ -49,7 +49,7 @@
 				alert('비밀번호를 확인하세요');
 				return false;
 			}else{
-				if(joinCheck()){
+				if(confirm("회원가입 하시겠습니까?")){
 					alert('회원가입을 축하합니다! 로그인 후 서비스를 이용하실 수 있습니다.');
 					return true;
 				}else{
@@ -58,10 +58,6 @@
 				}
 			}
 		})
-		
-		function joinCheck(){
-			return confirm("회원가입 하시겠습니까?");
-		}
 		
 		$("#idCheck").click(function(){
 			window.open('idCheck.jsp','_blank','top=100, left=100, width=400, height=250, resizable=no, location=no',true);
@@ -86,7 +82,7 @@
 				<td>아이디</td>
 				<td>
 					<input type="text" name="id" id="id" placeholder="아이디" required readonly>
-					<button id="idCheck">아이디 중복 확인</button>
+					<button id="idCheck">중복 확인</button>
 				</td>
 			</tr>
 			<tr>
