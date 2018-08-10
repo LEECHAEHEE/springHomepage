@@ -1,13 +1,16 @@
 package com.spring.web.member.Service;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Random;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.web.member.DAO.MemberDAO;
 import com.spring.web.member.DTO.MemberDTO;
 
@@ -64,9 +67,25 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void findMemberByIdEmail(MemberDTO member, HttpServletResponse response) throws Exception {
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();
+	public HashMap<String, Object> findMemberByIdEmail(MemberDTO member) throws Exception {
+		/*데이터를 자동으로 JSON형식으로 매핑해주는 객체.
+		 * 아직 사용방법 모르겠다.*/
+		//ObjectMapper mapper = new ObjectMapper();
+		
+		MemberDTO DBmember = memberDao.findMemberByIdEmail(member);
+		HashMap<String, Object> hmap = new HashMap<String,Object>();
+		
+		if(DBmember!=null) {
+			String certiNum = createCertiNum();
+			/*이메일 전송*/
+			//sendEmail(DBmember,certiNum);
+			hmap.put("id", DBmember.getId());
+			hmap.put("certiNum", certiNum);
+		}
+		return hmap;
+	}
+
+	private void sendEmail(MemberDTO member,String certiNum) {
 		//Mail 설정
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.naver.com";
@@ -78,16 +97,36 @@ public class MemberServiceImpl implements MemberService{
 		String fromName = "homepage admin";
 		String subject = "";
 		String msg = "";
-		
-		
-		MemberDTO DBmember = memberDao.findMemberByIdEmail(member);
-		if(DBmember==null) {
-			out.println(0);
-			out.close();
-		}else {
-			String certiNum = createCertiNum();
-			
+
+		subject = "인증번호 안내";
+		msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
+		msg += "<h3 style='color: blue;'>";
+		msg += member.getName() + "님 아이디 찾기 인증번호 입니다.</h3>";
+		msg += "<div style='font-size: 130%'>";
+		msg += certiNum;
+		msg += "</div><br/>";
+
+		// 받는 사람 E-Mail 주소
+		String mail = member.getEmail();
+		try {
+			HtmlEmail email = new HtmlEmail();
+			email.setDebug(true);
+			email.setCharset(charSet);
+			email.setSSLOnConnect(true);
+			email.setHostName(hostSMTP);
+			email.setSmtpPort(465);
+
+			email.setAuthentication(hostSMTPid, hostSMTPpwd);
+			email.setStartTLSEnabled(true);
+			email.addTo(mail, charSet);
+			email.setFrom(fromEmail, fromName, charSet);
+			email.setSubject(subject);
+			email.setHtmlMsg(msg);
+			email.send();
+		} catch (Exception e) {
+			System.out.println("메일발송 실패 : " + e);
 		}
+
 	}
 
 	public String createCertiNum(){

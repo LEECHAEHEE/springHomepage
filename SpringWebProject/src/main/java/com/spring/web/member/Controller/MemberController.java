@@ -1,8 +1,10 @@
 package com.spring.web.member.Controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.RequestWrapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.web.member.DTO.MemberDTO;
 import com.spring.web.member.Service.MemberServiceImpl;
@@ -68,7 +71,8 @@ public class MemberController {
 	}	
 	
 	@RequestMapping(value="/findIdsendEmail.do", method=RequestMethod.POST)
-	public void findIdsendEmail(@ModelAttribute("member") MemberDTO member, HttpServletResponse response) {
-		System.out.println(member);
+	@ResponseBody 
+	public Map<String, Object> findIdsendEmail(@ModelAttribute("member") MemberDTO member, HttpServletResponse response) throws Exception {
+		return service.findMemberByIdEmail(member); 
 	}
 }
