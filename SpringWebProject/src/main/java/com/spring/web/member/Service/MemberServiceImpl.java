@@ -11,6 +11,7 @@ import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mysql.cj.jdbc.SuspendableXAConnection;
 import com.spring.web.member.DAO.MemberDAO;
 import com.spring.web.member.DTO.MemberDTO;
 
@@ -72,13 +73,14 @@ public class MemberServiceImpl implements MemberService{
 		 * 아직 사용방법 모르겠다.*/
 		//ObjectMapper mapper = new ObjectMapper();
 		
-		MemberDTO DBmember = memberDao.findMemberByIdEmail(member);
 		HashMap<String, Object> hmap = new HashMap<String,Object>();
+		MemberDTO DBmember = memberDao.findMemberByIdEmail(member);
 		
 		if(DBmember!=null) {
 			String certiNum = createCertiNum();
 			/*이메일 전송*/
 			//sendEmail(DBmember,certiNum);
+			hmap.put("name", DBmember.getName());
 			hmap.put("id", DBmember.getId());
 			hmap.put("certiNum", certiNum);
 		}
