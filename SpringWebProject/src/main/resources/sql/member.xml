@@ -23,4 +23,12 @@
 	<select id="findMemberByIdEmail" parameterType="member" resultType="member">
 		select * from member where name=#{name} and email=#{email}
 	</select>
+	
+	<select id="findPwByNameId" parameterType="member" resultType="member">
+		select * from member where name=#{name} and id=#{id}
+	</select>
+	
+	<update id="changePwOK" parameterType="java.util.HashMap">
+		update member set pw=#{newPw} where id=#{id}
+	</update>
 </mapper>

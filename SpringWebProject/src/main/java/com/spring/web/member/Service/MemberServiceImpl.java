@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mysql.cj.jdbc.SuspendableXAConnection;
 import com.spring.web.member.DAO.MemberDAO;
 import com.spring.web.member.DTO.MemberDTO;
 
@@ -86,7 +84,38 @@ public class MemberServiceImpl implements MemberService{
 		}
 		return hmap;
 	}
+	
+	@Override
+	public HashMap<String, Object> findPwByNameId(MemberDTO member) throws Exception {
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		MemberDTO DBmember = memberDao.findPwByNameId(member);
+		if(DBmember!=null) {
+			String certiNum = createCertiNum();
+			//sendEmail(DBmember, certiNum);
+			hmap.put("certiNum", certiNum);
+			hmap.put("id", DBmember.getId());
+		}
+		return hmap;
+	}
 
+	@Override
+	public void changePwOK(HashMap<String, Object> hmap, HttpServletResponse response) throws Exception {
+		response.setContentType("text/html;utf-8");
+		PrintWriter out = response.getWriter();
+		
+		if(memberDao.changePwOK(hmap)==1) {
+			out.println("<script>");
+			out.println("alert('비밀번호가 변경되었습니다.\r\n다시 로그인 하세요');");
+			out.println("location.href='loginForm.do'");
+			out.println("</script>");
+			out.close();
+		}else {
+			out.println("<script>");
+			out.println("alert('비밀번호 변경 중 오류발생.');");
+			out.println("</script>");
+		}
+	}
+	
 	private void sendEmail(MemberDTO member,String certiNum) {
 		//Mail 설정
 		String charSet = "utf-8";
@@ -139,4 +168,7 @@ public class MemberServiceImpl implements MemberService{
 		}
 		return certiNum;
 	}
+
+
+	
 }

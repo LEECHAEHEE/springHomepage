@@ -1,5 +1,7 @@
 package com.spring.web.member.DAO;
 
+import java.util.HashMap;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -31,5 +33,13 @@ public class MemberDAO {
 	
 	public MemberDTO findMemberByIdEmail(MemberDTO member) {
 		return sqlSession.selectOne("findMemberByIdEmail", member);
+	}
+	
+	public MemberDTO findPwByNameId(MemberDTO member) {
+		return sqlSession.selectOne("findPwByNameId", member);
+	}
+	
+	public int changePwOK(HashMap<String, Object> hmap) {
+		return sqlSession.update("changePwOK",hmap);
 	}
 }

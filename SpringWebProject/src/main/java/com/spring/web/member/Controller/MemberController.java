@@ -1,5 +1,6 @@
 package com.spring.web.member.Controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -54,6 +56,14 @@ public class MemberController {
 		return "member/findPwForm";
 	}
 	
+	@RequestMapping(value="/changePwForm.do", method=RequestMethod.GET)
+	public ModelAndView changePwForm(@RequestParam("id") String id) {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("id",id);
+		mv.setViewName("member/changePwForm");
+		return mv;
+	}
+	
 	@RequestMapping(value="/idCheck.do", method=RequestMethod.POST)
 	public void idChceck(@RequestParam("id") String id, HttpServletResponse response) throws Exception {
 		service.idCheck(id,response);
@@ -85,6 +95,20 @@ public class MemberController {
 		mv.addObject("id",request.getParameter("paramId"));
 		mv.setViewName("member/findIdOK");
 		return mv;
+	}
+	
+	@RequestMapping(value="/findPwByNameId.do", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> findPwByNameId(@ModelAttribute("member") MemberDTO member, HttpServletResponse response) throws Exception{
+		return service.findPwByNameId(member);
+	}
+	
+	@RequestMapping(value="/changePwOK.do", method=RequestMethod.POST)
+	public void changePwOK(@RequestParam("id") String id, @RequestParam("newPw") String newPw, HttpServletResponse response) throws Exception {
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("id", id);
+		hmap.put("newPw", newPw);
+		service.changePwOK(hmap, response);
 	}
 	
 }
